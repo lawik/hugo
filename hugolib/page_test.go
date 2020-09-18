@@ -1178,6 +1178,22 @@ This is a {{< sc >}}.
 Content.
 `)
 
+	b.WithContent("page-md-shortcodes.md", `---
+title: "Hugo"
+---
+This is a {{< sc >}}.
+<!--more--> 
+This is a {{< sc >}}.
+`)
+
+	b.WithContent("page-html-shortcodes.html", `---
+title: "Hugo"
+---
+This is a {{< sc >}}.
+<!--more--> 
+This is a {{< sc >}}.
+`)
+
 	// https://github.com/gohugoio/hugo/issues/5464
 	b.WithContent("page-md-only-shortcode.md", `---
 title: "Hugo"
@@ -1227,6 +1243,16 @@ CONTENT:{{ .Content }}
 	b.AssertFileContent("public/page-md-shortcode/index.html",
 		"SUMMARY:<p>This is a a shortcode.</p>:END",
 		"CONTENT:<p>This is a a shortcode.</p>\n\n<p>Content.</p>\n",
+	)
+
+	b.AssertFileContent("public/page-md-shortcodes/index.html",
+		"SUMMARY:<p>This is a a shortcode.</p>:END",
+		"CONTENT:<p>This is a a shortcode.</p>\n\n<p>This is a a shortcode.</p>\n",
+	)
+
+	b.AssertFileContent("public/page-html-shortcodes/index.html",
+		"SUMMARY:<p>This is a a shortcode.</p>:END",
+		"CONTENT:<p>This is a a shortcode.</p>\n\n<p>This is a a shortcode.</p>\n",
 	)
 
 	b.AssertFileContent("public/page-md-shortcode-same-line/index.html",
